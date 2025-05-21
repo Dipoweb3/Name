@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { FrameLayout } from '../components/FrameLayout';
 import { endVoting } from '../lib/gameLogic';
 
-export default function VoteFrame({ roomId, submissions }) {
+interface VoteFrameProps {
+  roomId: string;
+  submissions: Array<{ id: string; answer: string }>;
+}
+
+export default function VoteFrame({ roomId, submissions }: VoteFrameProps) {
   const [room, setRoom] = useState(null);
 
   useEffect(() => {
@@ -23,7 +28,7 @@ export default function VoteFrame({ roomId, submissions }) {
     await endVoting(roomId);
   };
 
-  const handleVote = async (answerId, vote) => {
+  const handleVote = async (answerId: string, vote: 'correct' | 'incorrect') => {
     await fetch('/api/vote', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

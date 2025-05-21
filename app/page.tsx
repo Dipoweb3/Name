@@ -1,11 +1,6 @@
-import React from 'react';
-import CreateFrame from './frames/create';
+import dynamic from 'next/dynamic';
+const GameApp = dynamic(() => import('./GameApp'), { ssr: false });
 
 export default function Home() {
-  return (
-    <div>
-      <h1>Welcome to Name, Name</h1>
-      <CreateFrame roomId="abc123" category="Cars" link="https://name-name.xyz/room/abc123" />
-    </div>
-  );
+  return <GameApp />;
 } 

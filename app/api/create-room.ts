@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
-import { getRandomCategory } from '@/lib/categories';
+import { supabase } from '../lib/supabase';
+import { getRandomCategory } from '../lib/categories';
 
 export async function POST(req: NextRequest) {
   const { fid, username } = await req.json();

@@ -3,7 +3,12 @@ import { FrameLayout } from '../components/FrameLayout';
 import { Timer } from '../components/Timer';
 import { endSubmission } from '../lib/gameLogic';
 
-export default function SubmitFrame({ roomId, category }) {
+interface SubmitFrameProps {
+  roomId: string;
+  category: string;
+}
+
+export default function SubmitFrame({ roomId, category }: SubmitFrameProps) {
   const [answer, setAnswer] = useState('');
   const [room, setRoom] = useState(null);
 

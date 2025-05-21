@@ -2,8 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { FrameLayout } from '../components/FrameLayout';
 import { Scoreboard } from '../components/Scoreboard';
 import { startGame } from '../lib/gameLogic';
+import { Score } from '../types';
 
-export default function ResultsFrame({ roomId, scores }) {
+interface ResultsFrameProps {
+  roomId: string;
+  scores: Score[];
+}
+
+export default function ResultsFrame({ roomId, scores }: ResultsFrameProps) {
   const [room, setRoom] = useState(null);
 
   useEffect(() => {

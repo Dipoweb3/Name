@@ -186,7 +186,7 @@ function Header() {
       <div className="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 p-4 rounded-lg mb-4">
         <div className="flex items-center">
           <Heart className="text-white mr-2" size={24} />
-          <span className="text-2xl font-bold text-white">Lovable</span>
+          <span className="text-2xl font-bold text-white">Have Fun on Farcaster</span>
         </div>
         <div className="text-sm text-white mt-1">Build apps and websites by chatting with AI</div>
       </div>

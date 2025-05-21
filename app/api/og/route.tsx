@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ImageResponse } from '@vercel/og';
+import fs from 'fs';
+import path from 'path';
 
 export const runtime = 'edge';
 
@@ -17,19 +19,8 @@ interface GameParams {
   winner: string;
 }
 
-// Font loading function
-async function loadFonts() {
-  try {
-    const [regularFont, boldFont] = await Promise.all([
-      fetch(new URL('../../../assets/Inter-Regular.ttf', import.meta.url)).then(res => res.arrayBuffer()),
-      fetch(new URL('../../../assets/Inter-Bold.ttf', import.meta.url)).then(res => res.arrayBuffer()),
-    ]);
-    return { regularFont, boldFont };
-  } catch (error) {
-    console.error('Failed to load fonts:', error);
-    throw new Error('Font loading failed');
-  }
-}
+const regularFont = fs.readFileSync(path.join(process.cwd(), 'assets', 'Inter-Regular.ttf'));
+const boldFont = fs.readFileSync(path.join(process.cwd(), 'assets', 'Inter-Bold.ttf'));
 
 // Helper to parse search params safely
 function getGameParams(url: string): GameParams {
@@ -389,33 +380,57 @@ function Header({ category }: { category: string }) {
     >
       <div
         style={{
-          background: 'linear-gradient(to right, #ec4899, #a855f7, #3b82f6)',
-          padding: '16px',
-          borderRadius: '12px',
-          marginBottom: '16px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%',
+          height: '100%',
+          backgroundColor: '#000000',
+          padding: '40px 80px',
+          textAlign: 'center',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path 
-              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" 
-              fill="white" 
-            />
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: '20px',
+          }}
+        >
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ marginRight: '12px' }}
+          >
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
           </svg>
-          <span style={{ color: 'white', fontWeight: 'bold', marginLeft: '8px', fontSize: '24px' }}>
-            Lovable
+          <span
+            style={{
+              fontSize: '32px',
+              fontWeight: 'bold',
+              color: 'white',
+            }}
+          >
+            Have Fun on Farcaster
           </span>
         </div>
-        <span style={{ color: 'white', fontSize: '12px', marginTop: '4px' }}>
+        <div
+          style={{
+            fontSize: '16px',
+            color: 'white',
+            marginTop: '8px',
+          }}
+        >
           Build apps and websites by chatting with AI
-        </span>
+        </div>
       </div>
-      <h1 style={{ fontSize: '32px', fontWeight: 'bold', margin: '0' }}>
-        {appTitle}
-      </h1>
     </div>
   );
 }
@@ -425,9 +440,6 @@ export async function GET(req: NextRequest) {
     // Parse parameters from URL
     const params = getGameParams(req.url);
     
-    // Load fonts
-    const { regularFont, boldFont } = await loadFonts();
-
     // Render the OpenGraph image based on game stage
     return new ImageResponse(
       (

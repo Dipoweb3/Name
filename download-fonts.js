@@ -5,11 +5,11 @@ const path = require('path');
 const fonts = [
   {
     name: 'Inter-Regular.ttf',
-    url: 'https://github.com/rsms/inter/raw/master/docs/font-files/Inter-Regular.woff2'
+    url: 'https://github.com/rsms/inter/raw/master/docs/font-files/Inter-Regular.ttf'
   },
   {
     name: 'Inter-Bold.ttf',
-    url: 'https://github.com/rsms/inter/raw/master/docs/font-files/Inter-Bold.woff2'
+    url: 'https://github.com/rsms/inter/raw/master/docs/font-files/Inter-Bold.ttf'
   }
 ];
 
